@@ -44,43 +44,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-
-CALL taller16.guardar_factura(
-    1,
-    '{
-        "nombre_cliente": "Jero",
-        "identificacion": "123456789",
-        "direccion_cliente": "Calle 123, Manizales",
-        "codigo_factura": "F001",
-        "total": 150.75,
-        "descuento": 10.00,
-        "total_factura": 140.75,
-        "productos": [
-            {
-                "cantidad": 2,
-                "valor": 50.00,
-                "producto": {
-                    "nombre": "Producto A",
-                    "descripcion": "Descripcion del producto A",
-                    "precio": 50.00,
-                    "categorias": ["categoria1", "categoria2"]
-                }
-            },
-            {
-                "cantidad": 1,
-                "valor": 40.75,
-                "producto": {
-                    "nombre": "Producto B",
-                    "descripcion": "Descripcion del producto B",
-                    "precio": 40.75,
-                    "categorias": ["categoria3"]
-                }
-            }
-        ]
-    }'::jsonb
-);
-
-
 --2.
 CREATE OR REPLACE PROCEDURE taller16.actualizar_factura(
     p_codigo_punto_venta INT,
@@ -96,41 +59,6 @@ BEGIN
     END IF;
 END;
 $$ LANGUAGE plpgsql;
-
-CALL taller16.actualizar_factura(
-    1,
-    '{
-        "nombre_cliente": "Juan",
-        "identificacion": "123456789",
-        "direccion_cliente": "Calle 456, Pereira",
-        "codigo_factura": "F001",
-        "total": 200.75,
-        "descuento": 40.00,
-        "total_factura": 135.75,
-        "productos": [
-            {
-                "cantidad": 1,
-                "valor": 100.00,
-                "producto": {
-                    "nombre": "Producto A Actualizado",
-                    "descripcion": "Nueva descripcion del producto A",
-                    "precio": 100.00,
-                    "categorias": ["categoria1", "categoria4"]
-                }
-            },
-            {
-                "cantidad": 1,
-                "valor": 35.75,
-                "producto": {
-                    "nombre": "Producto B",
-                    "descripcion": "Descripcion del producto B",
-                    "precio": 35.75,
-                    "categorias": ["categoria3"]
-                }
-            }
-        ]
-    }'::jsonb
-);
 
 --3.
 CREATE OR REPLACE FUNCTION taller16.obtener_nombre_cliente(
@@ -151,9 +79,6 @@ BEGIN
     RETURN nombre_cliente;
 END;
 $$ LANGUAGE plpgsql;
-
-SELECT taller16.obtener_nombre_cliente('123456789');
-
 
 --4.
 CREATE OR REPLACE FUNCTION taller16.obtener_info_facturas()
@@ -178,8 +103,6 @@ BEGIN
         taller16.factura;
 END;
 $$ LANGUAGE plpgsql;
-
-SELECT * FROM taller16.obtener_info_facturas();
 
 --5.
 CREATE OR REPLACE FUNCTION taller16.obtener_productos_por_factura(
@@ -208,5 +131,3 @@ BEGIN
         descripcion->>'codigo_factura' = p_codigo_factura;
 END;
 $$ LANGUAGE plpgsql;
-
-SELECT * FROM taller16.obtener_productos_por_factura('F001');
