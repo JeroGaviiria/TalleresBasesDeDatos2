@@ -1,0 +1,374 @@
+Taller 18 Normalización (Desnormalización a lo último) 
+Autores
+ [{ "autor_id":1,
+   "Nombre": "Gabriel García Márquez", 
+   "Nacionalidad": "Colombia" 
+},
+   { "autor_id":2,
+   "Nombre": "Pablo Neruda", 
+   "Nacionalidad": "Chile"
+ },
+   { "autor_id":3,
+   "Nombre": "J. K. Rowling", 
+   "Nacionalidad": "Reino Unido" 
+}
+ ]
+Géneros
+ [{ "genero_id":1,
+   "Nombre": "Comedia"
+},
+   { "genero_id":2,
+   "Nombre": "Romance"
+},
+   { "genero_id":3,
+   "Nombre": "Acción"}
+ ]
+Libros
+[
+  {
+    "ISBN": "9783161484100",
+    "titulo": "Cien años de soledad",
+    "autor_id": 1,
+    "genero_id": 1
+  },
+  {
+    "ISBN": "9783161484101",
+    "titulo": "Antología poética",
+    "autor_id": 2,
+    "genero_id": 2
+  },
+  {
+    "ISBN": "9783161484102",
+    "titulo": "Harry Potter",
+    "autor_id": 3,
+    "genero_id": 3
+  },
+  {
+    "ISBN": "9783161484103",
+    "titulo": "Harry Potter 2",
+    "autor_id": 3,
+    "genero_id": 3
+  }
+]
+
+CONSULTAS
+#ISBN
+{"ISBN": "9783161484100"} 
+
+#Libro y Autor 	
+{
+   from: "autores",          
+   localField: "autor_id",     
+   foreignField: "autor_id",      
+   as: "autor_info" 
+}
+
+#Libro, autor y genero ( en text, NO en stages):
+[{
+        $lookup: {
+            from: "autores",
+            localField: "autor_id",
+            foreignField: "autor_id",
+            as: "autor_info"
+        }
+    },
+    {
+        $lookup: {
+            from: "generos",
+            localField: "genero_id",
+            foreignField: "genero_id",
+            as: "genero_info"
+        }
+    }]
+________________________________________________________________
+
+Taller 18 Desnormalización
+ [{
+  "producto_id": 1,
+  "nombre": "Camiseta",
+  "descripcion": "Camiseta de algodón",
+  "precio": 20,
+  "categoria": {
+    "categoria_id": 1,
+    "nombre_categoria": "ropa"
+  },
+  "comentarios": [
+    {
+      "comentario_id": 1,
+      "texto": "Muy Cómoda",
+      "cliente": "Juan"
+    },
+    {
+      "comentario_id": 2,
+      "texto": "Buena Calidad",
+      "cliente": "María" 
+    }
+  ]
+},
+{
+  "producto_id": 2,
+  "nombre": "Pantalones",
+  "descripcion": "Pantalones de mezclilla",
+  "precio": 35,
+  "categoria": {
+    "categoria_id": 2,
+    "nombre_categoria": "ropa"
+  },
+  "comentarios": [
+    {
+      "comentario_id": 1,
+      "texto": "Muy cómodos",
+      "cliente": "Carlos"
+    },
+    {
+      "comentario_id": 2,
+      "texto": "Excelente ajuste",
+      "cliente": "Ana"
+    }
+  ]
+},
+{
+  "producto_id": 3,
+  "nombre": "Zapatillas",
+  "descripcion": "Zapatillas deportivas",
+  "precio": 50,
+  "categoria": {
+    "categoria_id": 3,
+    "nombre_categoria": "calzado"
+  },
+  "comentarios": [
+    {
+      "comentario_id": 1,
+      "texto": "Super ligeras",
+      "cliente": "Luis"
+    },
+    {
+      "comentario_id": 2,
+      "texto": "Buen soporte",
+      "cliente": "Sofía"
+    }
+  ]
+},
+{
+  "producto_id": 4,
+  "nombre": "Gorra",
+  "descripcion": "Gorra de verano",
+  "precio": 15,
+  "categoria": {
+    "categoria_id": 4,
+    "nombre_categoria": "accesorios"
+  },
+  "comentarios": [
+    {
+      "comentario_id": 1,
+      "texto": "Ideal para el sol",
+      "cliente": "Miguel"
+    },
+    {
+      "comentario_id": 2,
+      "texto": "Muy bonita",
+      "cliente": "Laura"
+    }
+  ]
+},
+{
+  "producto_id": 5,
+  "nombre": "Chaqueta",
+  "descripcion": "Chaqueta de cuero",
+  "precio": 100,
+  "categoria": {
+    "categoria_id": 2,
+    "nombre_categoria": "ropa"
+  },
+  "comentarios": [
+    {
+      "comentario_id": 1,
+      "texto": "Perfecta para invierno",
+      "cliente": "Fernando"
+    },
+    {
+      "comentario_id": 2,
+      "texto": "Muy elegante",
+      "cliente": "Verónica"
+    }
+  ]
+},
+{
+  "producto_id": 6,
+  "nombre": "Botines",
+  "descripcion": "Botines de piel",
+  "precio": 80,
+  "categoria": {
+    "categoria_id": 3,
+    "nombre_categoria": "calzado"
+  },
+  "comentarios": [
+    {
+      "comentario_id": 1,
+      "texto": "Combinan con todo",
+      "cliente": "Andrés"
+    },
+    {
+      "comentario_id": 2,
+      "texto": "Confortables",
+      "cliente": "Patricia"
+    }
+  ]
+},
+{
+  "producto_id": 7,
+  "nombre": "Cinturón",
+  "descripcion": "Cinturón de cuero",
+  "precio": 25,
+  "categoria": {
+    "categoria_id": 4,
+    "nombre_categoria": "accesorios"
+  },
+  "comentarios": [
+    {
+      "comentario_id": 1,
+      "texto": "Duradero",
+      "cliente": "Javier"
+    },
+    {
+      "comentario_id": 2,
+      "texto": "Buen diseño",
+      "cliente": "Claudia"
+    }
+  ]
+},
+{
+  "producto_id": 8,
+  "nombre": "Sudadera",
+  "descripcion": "Sudadera con capucha",
+  "precio": 40,
+  "categoria": {
+    "categoria_id": 2,
+    "nombre_categoria": "ropa"
+  },
+  "comentarios": [
+    {
+      "comentario_id": 1,
+      "texto": "Muy suave",
+      "cliente": "Esteban"
+    },
+    {
+      "comentario_id": 2,
+      "texto": "Cálida y cómoda",
+      "cliente": "Elena"
+    }
+  ]
+},
+{
+  "producto_id": 9,
+  "nombre": "Camiseta sin mangas",
+  "descripcion": "Camiseta ideal para el verano",
+  "precio": 18,
+  "categoria": {
+    "categoria_id": 1,
+    "nombre_categoria": "ropa"
+  },
+  "comentarios": [
+    {
+      "comentario_id": 1,
+      "texto": "Muy fresca",
+      "cliente": "Gonzalo"
+    },
+    {
+      "comentario_id": 2,
+      "texto": "Colores vibrantes",
+      "cliente": "Marta"
+    }
+  ]
+},
+{
+  "producto_id": 10,
+  "nombre": "Bufanda",
+  "descripcion": "Bufanda de lana",
+  "precio": 30,
+  "categoria": {
+    "categoria_id": 4,
+    "nombre_categoria": "accesorios"
+  },
+  "comentarios": [
+    {
+      "comentario_id": 1,
+      "texto": "Muy cálida",
+      "cliente": "Roberto"
+    },
+    {
+      "comentario_id": 2,
+      "texto": "Ideal para el frío",
+      "cliente": "Isabel"
+    }
+  ]
+}
+]
+
+
+CONSULTAS:
+(Todas son en Text, NO en stages)
+#Sin Comentarios ni Categorías
+[
+    {
+        $lookup: {
+            from: "productos",
+            localField: "categoria.categoria_id",
+            foreignField: "producto_id",
+            as: "categoria_info"
+        }
+    },
+    {
+         $lookup: {
+            from: "productos",
+            localField: "comentarios.comentario_id",
+            foreignField: "producto_id",
+            as: "comentarios_info"
+        }
+    },
+    {
+        $project: {
+            categoria: 0,
+            comentarios: 0,
+          	categoria_info: 0,
+          	comentarios_info:0
+        }	
+    }
+]
+
+#Con categorías
+[
+    {
+        $lookup: {
+            from: "productos",
+            localField: "categoria.categoria_id",
+            foreignField: "producto_id",
+            as: "categoria_info"
+        }
+    },
+    {
+        $project: {
+            categoria: 0,
+          comentarios:0
+        }
+    }
+]
+
+#Con Comentarios
+[
+    {
+        $lookup: {
+            from: "productos",
+            localField: "comentarios.comentario_id",
+            foreignField: "producto_id",
+            as: "comentarios_info"
+        }
+    },
+    {
+        $project: {
+            categoria: 0,
+          comentarios:0
+        }
+    }
+]
+
