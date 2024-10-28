@@ -1,0 +1,62 @@
+AÑADIR 20 REGISTROS
+[
+    { "ISBN": "9783161484100", "Título": "Cien años de soledad", "NombreAutor": "Gabriel García Márquez", "Género": "Ficción", "Año": 1967 },
+    { "ISBN": "9780743273565", "Título": "El gran Gatsby", "NombreAutor": "F. Scott Fitzgerald", "Género": "Ficción", "Año": 1925 },
+    { "ISBN": "9780452284234", "Título": "1984", "NombreAutor": "George Orwell", "Género": "Distopía", "Año": 1949 },
+    { "ISBN": "9780140283334", "Título": "Don Quijote de la Mancha", "NombreAutor": "Miguel de Cervantes", "Género": "Ficción", "Año": 1605 },
+    { "ISBN": "9781451673218", "Título": "Moby Dick", "NombreAutor": "Herman Melville", "Género": "Aventura", "Año": 1851 },
+    { "ISBN": "9780061120084", "Título": "To Kill a Mockingbird", "NombreAutor": "Harper Lee", "Género": "Ficción", "Año": 1960 },
+    { "ISBN": "9780062051657", "Título": "Pride and Prejudice", "NombreAutor": "Jane Austen", "Género": "Romance", "Año": 1813 },
+    { "ISBN": "9780316769488", "Título": "The Catcher in the Rye", "NombreAutor": "J.D. Salinger", "Género": "Ficción", "Año": 1951 },
+    { "ISBN": "9780393525801", "Título": "The Grapes of Wrath", "NombreAutor": "John Steinbeck", "Género": "Ficción", "Año": 1939 },
+    { "ISBN": "9780140449112", "Título": "Crime and Punishment", "NombreAutor": "Fyodor Dostoevsky", "Género": "Ficción", "Año": 1866 },
+    { "ISBN": "9781501110101", "Título": "The Book Thief", "NombreAutor": "Markus Zusak", "Género": "Ficción", "Año": 2005 },
+    { "ISBN": "9780062301673", "Título": "Brave New World", "NombreAutor": "Aldous Huxley", "Género": "Ciencia Ficción", "Año": 1932 },
+    { "ISBN": "9781451673566", "Título": "Fahrenheit 451", "NombreAutor": "Ray Bradbury", "Género": "Ficción", "Año": 1953 },
+    { "ISBN": "9781476776338", "Título": "The Fault in Our Stars", "NombreAutor": "John Green", "Género": "Romance", "Año": 2012 },
+    { "ISBN": "9780143130291", "Título": "The Alchemist", "NombreAutor": "Paulo Coelho", "Género": "Ficción", "Año": 1988 },
+    { "ISBN": "9780385752569", "Título": "The Road", "NombreAutor": "Cormac McCarthy", "Género": "Ficción", "Año": 2006 },
+    { "ISBN": "9780143039435", "Título": "The Time Traveler's Wife", "NombreAutor": "Audrey Niffenegger", "Género": "Romance", "Año": 2003 },
+    { "ISBN": "9780670021365", "Título": "Life of Pi", "NombreAutor": "Yann Martel", "Género": "Aventura", "Año": 2001 },
+    { "ISBN": "9780743273573", "Título": "The Perks of Being a Wallflower", "NombreAutor": "Stephen Chbosky", "Género": "Ficción", "Año": 1999 },
+    { "ISBN": "9780062457714", "Título": "Where the Crawdads Sing", "NombreAutor": "Delia Owens", "Género": "Ficción", "Año": 2018 }
+]
+
+ACTUALIZAR 10 REGISTROS (AÑO MAYOR A 1958)
+{ Año: { $gt: 1958 } }
+
+{
+  $set: {
+    "Título": "Actualizado"
+  },
+}
+
+
+CONSULTAS CON CADA UNO DE LOS OPERADORES
+# Igual a
+{ "Año": 1967 }
+
+# Mayor que
+{ "Año": { "$gt": 2000 } }
+
+# Menor que
+{ "Año": { "$lt": 1990 } }
+
+# Mayor o igual que
+{ "Año": { "$gte": 1980 } }
+
+# Menor o igual que
+{ "Año": { "$lte": 2000 } }
+
+# No igual
+{ "NombreAutor": { "$ne": "Gabriel García Márquez" } }
+
+# $in
+{ "Género": { "$in": ["Ficción", "Aventura"] } }
+
+# $and
+{ "$and": [{ "Año": { "$gt": 1990 } }, { "Género": "Ficción" }] }
+
+# $or
+{ "$or": [{ "Año": { "$lt": 1980 } }, { "Género": "Romance" }] }
+
